@@ -45,6 +45,15 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', // get from key @_1
+        ],
+        'admin-api' => [ // register api for admin
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -64,11 +73,16 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => [ #@_2
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        #define table admins
+        'admins' => [ # <-- @_1
+            'driver' => 'eloquent',
+            'model'  => App\Admin::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -96,6 +110,12 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+
+        'admins' => [
+            'provider' => 'admins',// get provider @_2 key-admins
+            'table' => 'password_resets',
+            'expire' => 30,
         ],
     ],
 
